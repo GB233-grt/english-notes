@@ -50,11 +50,15 @@ async function show(id) {
   art.hidden = false;
   
   try {
-    const md = await fetch(`notes/${id}.md`).then(r => r.text());
-    // 使用解析器处理 markdown 内容
-    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1>${parseMarkdown(md)}`;
+    const response = await fetch(`notes/${id}.md`);
+    let text = await response.text();
+    // 更加稳妥的删除 Frontmatter 代码，防止误删正文
+    text = text.replace(/^---[\s\S]*?---\n?/, '');
+    
+    // 解析并显示内容
+    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1>${parseMarkdown(text)}`;
   } catch {
-    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>笔记内容加载失败，请检查控制台（F12）报错信息。</p>`;
+    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>笔记内容加载失败。</p>`;
   }
 }
 
