@@ -1,9 +1,9 @@
 const INDEX = 'data/index.json';
 let notes = [];
 
-// 备用 Markdown 解析器（如果 CDN 被拦截则启用）
+// 备用 Markdown 解析器（不需要外部库）
 function parseMarkdown(text) {
-  // 先尝试使用 marked
+  // 先尝试使用 marked（CDN加载的库）
   if (typeof marked !== 'undefined' && marked.parse) {
     try {
       return marked.parse(text);
@@ -12,7 +12,7 @@ function parseMarkdown(text) {
     }
   }
   
-  // 备用解析器（不需要外部库）
+  // 备用解析器
   return text
     .replace(/^---[\s\S]*?---\n?/, '')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
@@ -66,43 +66,30 @@ async function show(id) {
   const art = document.getElementById('note');
   art.hidden = false;
   
-  // 尝试多个可能的文件名路径
-  const possiblePaths = [
-    `notes${id}.md`,                    // 标准路径: notes0001.md
-    `notes${id}-are-grammar.md`,         // 实际文件名: notes0001-are-grammar.md
-  ];
+  // 正确的路径：notes0001.md（注意有斜杠 /）
+  const notePath = `notes${id}.md`;
+  console.log('尝试加载:', notePath);
   
-  let text = null;
-  let successPath = '';
-  
-  for (const path of possiblePaths) {
-    try {
-      console.log('尝试加载:', path);
-      const response = await fetch(path);
-      if (response.ok) {
-        text = await response.text();
-        successPath = path;
-        console.log('加载成功:', path, '内容长度:', text.length);
-        break;
-      } else {
-        console.warn('路径失败:', path, '状态:', response.status);
-      }
-    } catch (e) {
-      console.warn('路径异常:', path, e);
+  try {
+    const response = await fetch(notePath);
+    if (!response.ok) {
+      console.error('文件加载失败:', response.status, notePath);
+      art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>笔记文件加载失败（HTTP ${response.status}）。请检查 notes 文件夹中的文件名是否正确。</p>`;
+      return;
     }
+    
+    let text = await response.text();
+    console.log('加载成功，内容长度:', text.length);
+    
+    // 删除 frontmatter（如果有的话）
+    text = text.replace(/^---[\s\S]*?---\n?/, '');
+    
+    // 解析并显示内容
+    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1>${parseMarkdown(text)}`;
+  } catch (e) {
+    console.error('加载异常:', e);
+    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>笔记内容加载失败，请检查网络连接。</p>`;
   }
-  
-  if (!text) {
-    console.error('所有路径都失败，笔记文件未找到');
-    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>笔记文件未找到。请检查 notes 文件夹中的文件名是否正确。</p>`;
-    return;
-  }
-  
-  // 删除 frontmatter（如果有的话）
-  text = text.replace(/^---[\s\S]*?---\n?/, '');
-  
-  // 解析并显示内容
-  art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1>${parseMarkdown(text)}`;
 }
 
 function back() {
