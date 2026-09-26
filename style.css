@@ -116,3 +116,17 @@ main {
   border-radius: 3px;
   font-family: Consolas, Monaco, monospace;
 }
+
+#note ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+#note li {
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+#note strong {
+  color: #0366d6;
+}
