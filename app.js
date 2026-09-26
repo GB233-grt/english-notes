@@ -28,10 +28,11 @@ async function show(id) {
   const art = document.getElementById('note');
   art.hidden = false;
   try {
+    // 绝对匹配你的仓库路径：notes/ + id(0001) + -are-grammar.md
     const md = await fetch(`notes/${id}.md`).then(r => r.text());
     art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1>${marked.parse(md.replace(/^---[\s\S]*?---\n/, ''))}`;
   } catch {
-    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>${n.summary}</p>`;
+    art.innerHTML = `<button onclick="back()">← 返回</button><h1>${n.title}</h1><p>笔记内容加载失败，请检查控制台（F12）报错信息。</p>`;
   }
 }
 
