@@ -1,22 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>英语笔记</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- marked 解析器，用于将 Markdown 转换为 HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
 </head>
 <body>
   <header>
-    <h1>📒 英语笔记</h1>
-    <input id="q" type="search" placeholder="搜索笔记…">
-    <div id="count"></div>
+    <h1>📚 英语笔记</h1>
+    <input type="text" id="q" placeholder="搜索笔记...">
+    <small id="count"></small>
   </header>
+
   <main>
-    <section id="list"></section>
-    <article id="note" hidden></article>
+    <div id="list"></div>
+    <div id="note" hidden></div>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

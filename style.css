@@ -1,14 +1,118 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: -apple-system, sans-serif; background: #f5f5f5; }
-header { background: #fff; padding: 16px 20px; border-bottom: 1px solid #ddd; position: sticky; top: 0; }
-h1 { margin: 0 0 12px; font-size: 20px; }
-#q { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
-#count { margin-top: 8px; color: #888; font-size: 13px; }
-main { max-width: 700px; margin: 0 auto; padding: 20px; }
-.card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 12px; cursor: pointer; }
-.card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-.card h2 { margin: 0 0 6px; font-size: 17px; }
-.card small { color: #888; font-size: 13px; }
-.card p { margin: 8px 0 0; color: #555; font-size: 14px; }
-#note h1 { font-size: 22px; }
-#note button { margin-bottom: 16px; padding: 6px 14px; cursor: pointer; }
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin: 0 0 15px 0;
+  font-size: 22px;
+}
+
+#q {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+#q:focus {
+  border-color: #0366d6;
+}
+
+#count {
+  display: block;
+  margin-top: 8px;
+  color: #666;
+  font-size: 12px;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card h2 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+}
+
+.card small {
+  color: #888;
+  font-size: 12px;
+}
+
+.card p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+#note {
+  background: #fff;
+  padding: 25px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+#note button {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+#note button:hover {
+  background: #f0f0f0;
+}
+
+#note h1 {
+  margin: 0 0 20px 0;
+  font-size: 26px;
+}
+
+#note p {
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+#note code {
+  background: #f4f4f4;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: Consolas, Monaco, monospace;
+}
