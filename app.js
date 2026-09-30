@@ -66,8 +66,9 @@ async function show(id) {
   const art = document.getElementById('note');
   art.hidden = false;
   
-  // 正确的路径：notes0001.md（注意有斜杠 /）
-  const notePath = `notes${id}.md`;
+  // 获取当前项目的基础路径，适配 GitHub Pages
+  const basePath = window.location.pathname.includes('/english-notes') ? '/english-notes' : '';
+  const notePath = `${basePath}/notes/${id}.md`;
   console.log('尝试加载:', notePath);
   
   try {
